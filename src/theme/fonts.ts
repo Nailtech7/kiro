@@ -23,7 +23,7 @@ export const fonts = {
 } as const;
 
 export type Font = (typeof fonts)[keyof typeof fonts];
-export type FontId = Font['id'];
+export type FontId = keyof typeof fonts;
 
 export const defaultFont: FontId = 'serif';
 

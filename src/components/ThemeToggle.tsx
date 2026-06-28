@@ -1,66 +1,24 @@
-import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { themes } from '../theme/themes';
+import { Text, TouchableOpacity } from 'react-native';
 
-interface Theme {
-	id: string;
-	label: string;
-	background: string;
-	foreground: string;
-}
+import { usePreferences } from '@/context/PreferencesContext';
+import { ThemeId, themes } from '@/theme/themes';
 
-interface ThemePickerProps {
-	currentThemeId: string;
-	onSelect: (themeId: string) => void;
-	theme: Theme;
-}
+export default function ThemeToggle() {
+	const { theme, themeId, setTheme } = usePreferences();
 
-const ThemePicker: React.FC<ThemePickerProps> = ({
-	currentThemeId,
-	onSelect,
-	theme,
-}) => {
-	const { foreground } = theme;
+	const themeIds = Object.keys(themes) as ThemeId[];
 
-	const themeList = Object.values(themes);
+	function nextTheme() {
+		const currentIndex = themeIds.indexOf(themeId);
 
-	const handleThemeChange = () => {
-		const currentIndex = themeList.findIndex((t) => t.id === currentThemeId);
+		const nextIndex = (currentIndex + 1) % themeIds.length;
 
-		const nextIndex = (currentIndex + 1) % themeList.length;
-
-		onSelect(themeList[nextIndex].id);
-	};
+		setTheme(themeIds[nextIndex]);
+	}
 
 	return (
-		<TouchableOpacity
-			style={[
-				styles.button,
-				{
-					borderColor: `${foreground}44`,
-					backgroundColor: `${foreground}11`,
-				},
-			]}
-			onPress={handleThemeChange}
-			activeOpacity={0.7}
-		>
-			<Text style={[styles.icon, { color: foreground }]}>🎨</Text>
+		<TouchableOpacity onPress={nextTheme}>
+			<Text style={{ color: theme.foreground }}>🎨</Text>
 		</TouchableOpacity>
 	);
-};
-
-export default ThemePicker;
-
-const styles = StyleSheet.create({
-	button: {
-		width: 42,
-		height: 42,
-		borderRadius: 21,
-		borderWidth: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	icon: {
-		fontSize: 20,
-	},
-});
+}

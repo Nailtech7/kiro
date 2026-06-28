@@ -1,11 +1,7 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-interface Story {
-	animal: string;
-	title: string;
-	[key: string]: unknown;
-}
+import type { Story } from '@/data/stories';
 
 interface Theme {
 	background: string;
