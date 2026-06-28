@@ -69,7 +69,7 @@ export default function HomeScreen() {
 			<FlatList
 				data={visibleStories}
 				keyExtractor={(item) => item.id}
-				numColumns={2}
+				numColumns={1}
 				contentContainerStyle={styles.list}
 				ListEmptyComponent={
 					<Text

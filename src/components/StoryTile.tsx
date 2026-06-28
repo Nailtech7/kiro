@@ -1,12 +1,9 @@
+import { Entypo } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import type { Story } from '@/data/stories';
-
-interface Theme {
-	background: string;
-	foreground: string;
-}
+import type { Theme } from '@/theme/themes';
 
 interface StoryTileProps {
 	story: Story;
@@ -16,78 +13,64 @@ interface StoryTileProps {
 	onFavouriteToggle: () => void;
 }
 
-const StoryTile: React.FC<StoryTileProps> = ({
+export default function StoryTile({
 	story,
 	theme,
 	isFavourite,
 	onPress,
 	onFavouriteToggle,
-}) => {
-	const { background, foreground } = theme;
-
+}: StoryTileProps) {
 	return (
 		<TouchableOpacity
 			onPress={onPress}
-			activeOpacity={0.75}
+			activeOpacity={0.65}
+			style={styles.row}
 		>
-			{/* Animal icon */}
-			<Text style={styles.animal}>{story.animal}</Text>
+			<Text style={styles.emoji}>{story.animal}</Text>
 
-			{/* Title */}
 			<Text
-				style={[styles.title, { color: foreground }]}
-				numberOfLines={2}
+				numberOfLines={1}
+				style={[
+					styles.title,
+					{
+						color: theme.foreground,
+					},
+				]}
 			>
 				{story.title}
 			</Text>
 
-			{/* Favourite button */}
 			<TouchableOpacity
-				style={styles.favButton}
 				onPress={onFavouriteToggle}
-				hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+				hitSlop={12}
 			>
-				<Text
-					style={[
-						styles.favIcon,
-						{ color: isFavourite ? foreground : `${foreground}44` },
-					]}
-				>
-					{isFavourite ? '♥' : '♡'}
-				</Text>
+				<Entypo
+					name={isFavourite ? 'heart' : 'heart-outlined'}
+					size={16}
+					color={theme.foreground}
+				/>
 			</TouchableOpacity>
 		</TouchableOpacity>
 	);
-};
-
-export default StoryTile;
+}
 
 const styles = StyleSheet.create({
-	tile: {
-		flex: 1,
-		margin: 6,
-		borderRadius: 16,
-		borderWidth: 1,
-		padding: 16,
-		minHeight: 140,
-		justifyContent: 'space-between',
+	row: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		paddingVertical: 12,
 	},
-	animal: {
-		fontSize: 36,
-		marginBottom: 8,
+
+	emoji: {
+		fontSize: 18,
+		width: 32,
+		textAlign: 'left',
 	},
+
 	title: {
-		fontSize: 14,
-		fontWeight: '600',
-		letterSpacing: 0.2,
-		lineHeight: 20,
 		flex: 1,
-	},
-	favButton: {
-		alignSelf: 'flex-end',
-		marginTop: 8,
-	},
-	favIcon: {
-		fontSize: 20,
+		fontSize: 14,
+		fontWeight: '400',
+		marginLeft: 2,
 	},
 });
