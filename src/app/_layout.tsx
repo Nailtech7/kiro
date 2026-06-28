@@ -1,4 +1,5 @@
 import { PreferencesProvider } from '@/context/PreferencesContext';
+import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -6,35 +7,25 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {
 	Lora_400Regular,
 	Lora_400Regular_Italic,
-	useFonts,
 } from '@expo-google-fonts/lora';
 
-import {
-	Nunito_400Regular,
-	Nunito_400Regular_Italic,
-} from '@expo-google-fonts/nunito';
+import { PatrickHand_400Regular } from '@expo-google-fonts/patrick-hand';
 
-import {
-	SourceSerif4_400Regular,
-	SourceSerif4_400Regular_Italic,
-} from '@expo-google-fonts/source-serif-4';
+import { ViaodaLibre_400Regular } from '@expo-google-fonts/viaoda-libre';
 
 export default function RootLayout() {
 	const [fontsLoaded] = useFonts({
 		Lora_400Regular,
-
 		Lora_400Regular_Italic,
 
-		Nunito_400Regular,
+		PatrickHand_400Regular,
 
-		Nunito_400Regular_Italic,
-
-		SourceSerif4_400Regular,
-
-		SourceSerif4_400Regular_Italic,
+		ViaodaLibre_400Regular,
 	});
 
-	if (!fontsLoaded) return null;
+	if (!fontsLoaded) {
+		return null;
+	}
 	return (
 		<SafeAreaProvider>
 			<PreferencesProvider>

@@ -36,8 +36,8 @@ const PreferencesContext = createContext<PreferencesContextType | null>(null);
 export function PreferencesProvider({ children }: { children: ReactNode }) {
 	const [ready, setReady] = useState(false);
 
-	const [themeId, setThemeId] = useState<ThemeId>('midnight');
-	const [fontId, setFontId] = useState<FontId>('serif');
+	const [themeId, setThemeId] = useState<ThemeId>('mercury');
+	const [fontId, setFontId] = useState<FontId>('default');
 	const [fontSize, setFontSizeState] = useState(17);
 	const [favourites, setFavouritesState] = useState<string[]>([]);
 

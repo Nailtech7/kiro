@@ -12,7 +12,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import ThemeToggle from '@/components/ThemeToggle';
 import { usePreferences } from '@/context/PreferencesContext';
 import { stories } from '@/data/stories';
-import { fonts, fontSizeMax, fontSizeMin, fontSizeStep } from '@/theme/fonts';
+import {
+	FontId,
+	fonts,
+	fontSizeMax,
+	fontSizeMin,
+	fontSizeStep,
+} from '@/theme/fonts';
+import { Entypo } from '@expo/vector-icons';
 
 export default function ReaderScreen() {
 	const { id } = useLocalSearchParams<{ id: string }>();
@@ -27,8 +34,6 @@ export default function ReaderScreen() {
 		toggleFavourite,
 	} = usePreferences();
 
-	console.log(fontId);
-
 	const story = useMemo(() => stories.find((s) => s.id === id), [id]);
 
 	if (!story) {
@@ -41,8 +46,18 @@ export default function ReaderScreen() {
 		);
 	}
 
-	const currentFont = fonts[fontId] || fonts['serif'];
+	const currentFont = fonts[fontId] || fonts['default'];
 	const isFavourite = favourites.includes(story.id);
+
+	const fontIds = Object.keys(fonts) as FontId[];
+
+	function handleNextFont() {
+		const currentIndex = fontIds.indexOf(fontId);
+
+		const nextIndex = (currentIndex + 1) % fontIds.length;
+
+		setFont(fontIds[nextIndex]);
+	}
 
 	return (
 		<SafeAreaView
@@ -111,21 +126,19 @@ export default function ReaderScreen() {
 						setFontSize(Math.max(fontSizeMin, fontSize - fontSizeStep))
 					}
 				>
-					<Text style={[styles.button, { color: theme.foreground }]}>A−</Text>
+					<Entypo
+						name='minus'
+						size={18}
+						color={theme.foreground}
+					/>
 				</TouchableOpacity>
 
-				<TouchableOpacity
-					onPress={() =>
-						setFont(
-							fontId === 'serif'
-								? 'rounded'
-								: fontId === 'rounded'
-									? 'modern'
-									: 'serif',
-						)
-					}
-				>
-					<Text style={[styles.button, { color: theme.foreground }]}>Font</Text>
+				<TouchableOpacity onPress={handleNextFont}>
+					<Entypo
+						name='feather'
+						size={18}
+						color={theme.foreground}
+					/>
 				</TouchableOpacity>
 
 				<ThemeToggle />
@@ -135,7 +148,11 @@ export default function ReaderScreen() {
 						setFontSize(Math.min(fontSizeMax, fontSize + fontSizeStep))
 					}
 				>
-					<Text style={[styles.button, { color: theme.foreground }]}>A+</Text>
+					<Entypo
+						name='plus'
+						size={18}
+						color={theme.foreground}
+					/>
 				</TouchableOpacity>
 			</View>
 		</SafeAreaView>

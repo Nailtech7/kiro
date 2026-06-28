@@ -1,43 +1,72 @@
 export const themes = {
-	midnight: {
-		id: 'midnight',
-		label: 'Midnight',
-		background: '#121212',
-		foreground: '#F5F5F5',
-	},
-	ocean: {
-		id: 'ocean',
-		label: 'Ocean',
-		background: '#EAF3FF',
-		foreground: '#1A365D',
-	},
-	parchment: {
-		id: 'parchment',
-		label: 'Parchment',
-		background: '#F7F0E6',
-		foreground: '#2C1810',
-	},
 	forest: {
 		id: 'forest',
-		label: 'Forest',
-		background: '#1A2E1A',
-		foreground: '#D4EDDA',
+		foreground: '#f7edcc',
+		background: '#12473a',
 	},
-	dusk: {
-		id: 'dusk',
-		label: 'Dusk',
-		background: '#2D1B33',
-		foreground: '#F0D9FF',
+
+	ocean: {
+		id: 'ocean',
+		foreground: '#053324',
+		background: '#8fc7f7',
 	},
-	paper: {
-		id: 'paper',
-		label: 'Paper',
-		background: '#FAFAFA',
-		foreground: '#1A1A1A',
+
+	mars: {
+		id: 'mars',
+		foreground: '#ff9452',
+		background: '#0a0819',
+	},
+
+	jupiter: {
+		id: 'jupiter',
+		foreground: '#f0f2e3',
+		background: '#1e1c64',
+	},
+
+	mercury: {
+		id: 'mercury',
+		foreground: '#2e3333',
+		background: '#d6dbd3',
+	},
+
+	venus: {
+		id: 'venus',
+		foreground: '#13361f',
+		background: '#f0e6c7',
+	},
+
+	sun: {
+		id: 'sun',
+		foreground: '#212e3d',
+		background: '#fad41f',
+	},
+
+	volcano: {
+		id: 'volcano',
+		foreground: '#ffe036',
+		background: '#080d1e',
+	},
+
+	neptune: {
+		id: 'neptune',
+		foreground: '#08f2ff',
+		background: '#33064f',
+	},
+
+	light: {
+		id: 'light',
+		foreground: '#000000',
+		background: '#ffffff',
+	},
+
+	dark: {
+		id: 'dark',
+		foreground: '#ffffff',
+		background: '#000000',
 	},
 } as const;
 
 export type Theme = (typeof themes)[keyof typeof themes];
 export type ThemeId = Theme['id'];
 
-export const defaultTheme: ThemeId = 'midnight';
+export const defaultTheme: ThemeId = 'mercury';

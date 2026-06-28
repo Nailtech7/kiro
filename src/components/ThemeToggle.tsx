@@ -1,7 +1,8 @@
-import { Text, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 import { usePreferences } from '@/context/PreferencesContext';
 import { ThemeId, themes } from '@/theme/themes';
+import { Entypo } from '@expo/vector-icons';
 
 export default function ThemeToggle() {
 	const { theme, themeId, setTheme } = usePreferences();
@@ -18,7 +19,11 @@ export default function ThemeToggle() {
 
 	return (
 		<TouchableOpacity onPress={nextTheme}>
-			<Text style={{ color: theme.foreground }}>🎨</Text>
+			<Entypo
+				name='drop'
+				size={18}
+				color={theme.foreground}
+			/>
 		</TouchableOpacity>
 	);
 }
