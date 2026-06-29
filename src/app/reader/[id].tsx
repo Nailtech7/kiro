@@ -1,4 +1,6 @@
-import ThemeToggle from '@/components/ThemeToggle';
+import AppIcon from '@/components/AppIcon';
+import AppText from '@/components/AppText';
+import ThemeToggle from '@/components/SimpleThemeToggle';
 import { usePreferences } from '@/context/PreferencesContext';
 import { stories } from '@/data/stories';
 import {
@@ -8,7 +10,6 @@ import {
 	fontSizeMin,
 	fontSizeStep,
 } from '@/theme/fonts';
-import { Entypo } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useCallback, useMemo, useRef } from 'react';
 import {
@@ -17,7 +18,6 @@ import {
 	NativeSyntheticEvent,
 	ScrollView,
 	StyleSheet,
-	Text,
 	TouchableOpacity,
 	View,
 } from 'react-native';
@@ -119,7 +119,7 @@ export default function ReaderScreen() {
 			<SafeAreaView
 				style={[styles.root, { backgroundColor: theme.background }]}
 			>
-				<Text style={{ color: theme.foreground }}>Story not found.</Text>
+				<AppText>Story not found.</AppText>
 			</SafeAreaView>
 		);
 	}
@@ -138,52 +138,58 @@ export default function ReaderScreen() {
 				onScrollEndDrag={handleScrollEndDrag}
 				onMomentumScrollEnd={handleScrollEndDrag}
 			>
-				<Text
+				<AppText
 					style={[
 						styles.title,
 						{
-							color: theme.foreground,
-							fontFamily: currentFont.body,
 							fontSize: fontSize + 10,
 							lineHeight: (fontSize + 10) * 1.3,
 						},
 					]}
 				>
 					{story.title}
-				</Text>
+				</AppText>
 
-				<Text style={styles.animal}>{story.animal}</Text>
+				<AppText
+					style={[
+						styles.animal,
+						{
+							fontSize: fontSize * 2,
+						},
+					]}
+				>
+					{story.animal}
+				</AppText>
 
-				<Text
+				<AppText
 					style={{
-						color: theme.foreground,
-						fontSize,
 						lineHeight: fontSize * 1.75,
-						fontFamily: currentFont.body,
+						fontSize: fontSize,
 					}}
 				>
 					{story.content}
-				</Text>
+				</AppText>
 
-				<Text
+				<AppText
 					style={[
 						styles.moralTitle,
-						{ color: theme.foreground, fontFamily: currentFont.body },
+						{
+							fontSize: fontSize - 1,
+						},
 					]}
 				>
 					Moral
-				</Text>
+				</AppText>
 
-				<Text
+				<AppText
 					style={{
-						color: theme.foreground,
 						fontSize: fontSize - 1,
 						lineHeight: (fontSize - 1) * 1.75,
 						fontFamily: currentFont.bodyItalic,
 					}}
 				>
 					{story.moral}
-				</Text>
+				</AppText>
 			</ScrollView>
 
 			{/* ── Absolutely positioned overlays (opacity only) ── */}
@@ -201,10 +207,9 @@ export default function ReaderScreen() {
 						hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
 						style={styles.backButton}
 					>
-						<Entypo
+						<AppIcon
 							name='chevron-small-left'
 							size={24}
-							color={theme.foreground}
 						/>
 					</TouchableOpacity>
 				</SafeAreaView>
@@ -224,11 +229,7 @@ export default function ReaderScreen() {
 							hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
 							style={styles.controlItem}
 						>
-							<Entypo
-								name={isFavourite ? 'heart' : 'heart-outlined'}
-								size={18}
-								color={theme.foreground}
-							/>
+							<AppIcon name={isFavourite ? 'heart' : 'heart-outlined'} />
 						</TouchableOpacity>
 
 						{/* Theme toggle */}
@@ -242,11 +243,7 @@ export default function ReaderScreen() {
 							hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
 							style={styles.controlItem}
 						>
-							<Entypo
-								name='feather'
-								size={18}
-								color={theme.foreground}
-							/>
+							<AppIcon name='feather' />
 						</TouchableOpacity>
 
 						{/* Font size − */}
@@ -257,11 +254,7 @@ export default function ReaderScreen() {
 							hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
 							style={styles.controlItem}
 						>
-							<Entypo
-								name='minus'
-								size={18}
-								color={theme.foreground}
-							/>
+							<AppIcon name='minus' />
 						</TouchableOpacity>
 
 						{/* Font size + */}
@@ -272,11 +265,7 @@ export default function ReaderScreen() {
 							hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
 							style={styles.controlItem}
 						>
-							<Entypo
-								name='plus'
-								size={18}
-								color={theme.foreground}
-							/>
+							<AppIcon name='plus' />
 						</TouchableOpacity>
 					</View>
 				</SafeAreaView>

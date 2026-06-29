@@ -1,124 +1,41 @@
-import { router } from 'expo-router';
+import AboutOverlay from '@/components/AboutOverlay';
+import Header from '@/components/Header';
+import StoryList from '@/components/StoryList';
+import ThemeMenu from '@/components/ThemeMenu';
+import { usePreferences } from '@/context/PreferencesContext';
 import { useState } from 'react';
-import {
-	FlatList,
-	StatusBar,
-	StyleSheet,
-	Text,
-	TouchableOpacity,
-	View,
-} from 'react-native';
-
+import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import StoryTile from '@/components/StoryTile';
-import { usePreferences } from '@/context/PreferencesContext';
-import { stories } from '@/data/stories';
-
 export default function HomeScreen() {
-	const { theme, favourites, toggleFavourite } = usePreferences();
-
-	const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
-
-	const visibleStories = showFavouritesOnly
-		? stories.filter((story) => favourites.includes(story.id))
-		: stories;
-
-	function handleShuffle() {
-		const random = stories[Math.floor(Math.random() * stories.length)];
-
-		router.push({
-			pathname: '/reader/[id]',
-			params: {
-				id: random.id,
-			},
-		});
-	}
-
+	const [menuOpen, setMenuOpen] = useState(false);
+	const { theme } = usePreferences();
 	return (
-		<SafeAreaView
-			style={[
-				styles.container,
-				{
-					backgroundColor: theme.background,
-				},
-			]}
-		>
-			<StatusBar
-				barStyle={
-					['midnight', 'forest', 'dusk'].includes(theme.id)
-						? 'light-content'
-						: 'dark-content'
-				}
+		<SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
+			<Header
+				menuOpen={menuOpen}
+				onToggleMenu={() => setMenuOpen(!menuOpen)}
 			/>
 
-			<View style={styles.controls}>
-				<TouchableOpacity
-					onPress={() => setShowFavouritesOnly((value) => !value)}
-				>
-					<Text style={{ color: theme.foreground }}>
-						{showFavouritesOnly ? '♥ Favourites' : 'All Stories'}
-					</Text>
-				</TouchableOpacity>
+			{menuOpen && (
+				<View style={[styles.overlay, { backgroundColor: theme.background }]} />
+			)}
 
-				<TouchableOpacity onPress={handleShuffle}>
-					<Text style={{ color: theme.foreground }}>Shuffle</Text>
-				</TouchableOpacity>
-			</View>
+			{menuOpen && <ThemeMenu onClose={() => setMenuOpen(false)} />}
 
-			<FlatList
-				data={visibleStories}
-				keyExtractor={(item) => item.id}
-				numColumns={1}
-				contentContainerStyle={styles.list}
-				ListEmptyComponent={
-					<Text
-						style={[
-							styles.empty,
-							{
-								color: theme.foreground,
-							},
-						]}
-					>
-						No favourite stories yet.
-					</Text>
-				}
-				renderItem={({ item }) => (
-					<StoryTile
-						story={item}
-						theme={theme}
-						isFavourite={favourites.includes(item.id)}
-						onPress={() =>
-							router.push({
-								pathname: '/reader/[id]',
-								params: {
-									id: item.id,
-								},
-							})
-						}
-						onFavouriteToggle={() => toggleFavourite(item.id)}
-					/>
-				)}
-			/>
+			{menuOpen && <AboutOverlay />}
+
+			<StoryList />
 		</SafeAreaView>
 	);
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
-	controls: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		padding: 16,
-	},
-	list: {
-		padding: 12,
-	},
-	empty: {
-		textAlign: 'center',
-		marginTop: 48,
-		fontSize: 16,
+	overlay: {
+		...StyleSheet.absoluteFill,
+
+		top: 46, // adjust to match  Header height
+
+		zIndex: 1,
 	},
 });

@@ -4,6 +4,7 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import type { Story } from '@/data/stories';
 import type { Theme } from '@/theme/themes';
+import AppText from './AppText';
 
 interface StoryTileProps {
 	story: Story;
@@ -28,17 +29,12 @@ export default function StoryTile({
 		>
 			<Text style={styles.emoji}>{story.animal}</Text>
 
-			<Text
+			<AppText
+				style={styles.title}
 				numberOfLines={1}
-				style={[
-					styles.title,
-					{
-						color: theme.foreground,
-					},
-				]}
 			>
 				{story.title}
-			</Text>
+			</AppText>
 
 			<TouchableOpacity
 				onPress={onFavouriteToggle}
@@ -69,8 +65,7 @@ const styles = StyleSheet.create({
 
 	title: {
 		flex: 1,
-		fontSize: 14,
-		fontWeight: '400',
+
 		marginLeft: 2,
 	},
 });
