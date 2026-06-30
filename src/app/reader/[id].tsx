@@ -1,6 +1,6 @@
 import AppIcon from '@/components/AppIcon';
 import AppText from '@/components/AppText';
-import ThemeToggle from '@/components/SimpleThemeToggle';
+import MenuButton from '@/components/MenuButton';
 import { usePreferences } from '@/context/PreferencesContext';
 import { stories } from '@/data/stories';
 import {
@@ -10,6 +10,7 @@ import {
 	fontSizeMin,
 	fontSizeStep,
 } from '@/theme/fonts';
+import { ThemeId, themes } from '@/theme/themes';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useCallback, useMemo, useRef } from 'react';
 import {
@@ -31,6 +32,8 @@ export default function ReaderScreen() {
 	const { id } = useLocalSearchParams<{ id: string }>();
 	const {
 		theme,
+		setTheme,
+		themeId,
 		fontId,
 		setFont,
 		fontSize,
@@ -106,6 +109,18 @@ export default function ReaderScreen() {
 		}
 	}, [resetIdleTimer]);
 
+	// ── Theme cycling
+
+	const themeIds = Object.keys(themes) as ThemeId[];
+
+	function handleNextTheme() {
+		const currentIndex = themeIds.indexOf(themeId);
+
+		const nextIndex = (currentIndex + 1) % themeIds.length;
+
+		setTheme(themeIds[nextIndex]);
+	}
+
 	// ── Font cycling ─────────────────────────────────────────────────────────
 	const fontIds = useMemo(() => Object.keys(fonts) as FontId[], []);
 	const handleNextFont = useCallback(() => {
@@ -157,7 +172,7 @@ export default function ReaderScreen() {
 					style={[
 						styles.animal,
 						{
-							fontSize: fontSize * 2,
+							fontSize: fontSize * 6,
 						},
 					]}
 				>
@@ -219,55 +234,56 @@ export default function ReaderScreen() {
 					style={styles.controlsWrapper}
 					pointerEvents='box-none'
 				>
-					<View
-						style={styles.controls}
-						pointerEvents='box-none'
+					<MenuButton
+						onPress={() => toggleFavourite(story.id)}
+						active={isFavourite}
 					>
-						{/* Favourite */}
-						<TouchableOpacity
-							onPress={() => toggleFavourite(story.id)}
-							hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-							style={styles.controlItem}
-						>
-							<AppIcon name={isFavourite ? 'heart' : 'heart-outline'} />
-						</TouchableOpacity>
+						<AppIcon
+							size={20}
+							name='bookmark-outline'
+						/>
+					</MenuButton>
 
-						{/* Theme toggle */}
-						<View style={styles.controlItem}>
-							<ThemeToggle />
-						</View>
+					<MenuButton onPress={handleNextTheme}>
+						<AppIcon
+							size={24}
+							name='volume-high-outline'
+						/>
+					</MenuButton>
+					<MenuButton onPress={handleNextTheme}>
+						<AppIcon
+							size={24}
+							name='water-outline'
+						/>
+					</MenuButton>
 
-						{/* Font cycle */}
-						<TouchableOpacity
-							onPress={handleNextFont}
-							hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-							style={styles.controlItem}
-						>
-							<AppIcon name='text' />
-						</TouchableOpacity>
+					<MenuButton
+						onPress={() =>
+							setFontSize(Math.max(fontSizeMin, fontSize - fontSizeStep))
+						}
+					>
+						<AppIcon
+							size={24}
+							name='remove'
+						/>
+					</MenuButton>
 
-						{/* Font size + */}
-						<TouchableOpacity
-							onPress={() =>
-								setFontSize(Math.min(fontSizeMax, fontSize + fontSizeStep))
-							}
-							hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-							style={styles.controlItem}
-						>
-							<AppIcon name='add-circle-outline' />
-						</TouchableOpacity>
-
-						{/* Font size − */}
-						<TouchableOpacity
-							onPress={() =>
-								setFontSize(Math.max(fontSizeMin, fontSize - fontSizeStep))
-							}
-							hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-							style={styles.controlItem}
-						>
-							<AppIcon name='remove-circle-outline' />
-						</TouchableOpacity>
-					</View>
+					<MenuButton
+						onPress={() =>
+							setFontSize(Math.min(fontSizeMax, fontSize + fontSizeStep))
+						}
+					>
+						<AppIcon
+							size={24}
+							name='add'
+						/>
+					</MenuButton>
+					<MenuButton onPress={handleNextFont}>
+						<AppIcon
+							size={24}
+							name='text-outline'
+						/>
+					</MenuButton>
 				</SafeAreaView>
 			</Animated.View>
 		</View>
@@ -280,7 +296,7 @@ const styles = StyleSheet.create({
 	},
 	content: {
 		paddingTop: 92, // clear the back button
-		paddingBottom: 60, // clear the floating controls
+		paddingBottom: 60, // nope - clear the floating controls
 		paddingHorizontal: 24,
 	},
 	title: {
@@ -314,17 +330,14 @@ const styles = StyleSheet.create({
 	// Vertical controls overlay
 	controlsWrapper: {
 		position: 'absolute',
-		bottom: 0,
-		right: 0,
-	},
-	controls: {
-		paddingRight: 20,
-		paddingBottom: 24,
+
+		bottom: 24,
+		right: 18,
+
+		gap: 18,
+
 		alignItems: 'center',
-		gap: 20,
-	},
-	controlItem: {
-		alignItems: 'center',
-		justifyContent: 'center',
+
+		zIndex: 100,
 	},
 });

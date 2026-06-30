@@ -12,7 +12,7 @@ interface ThemeMenuProps {
 	setShowFavouritesOnly: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function ThemeMenu({
+export default function HomeMenu({
 	showFavouritesOnly,
 	setShowFavouritesOnly,
 	onClose,
@@ -119,7 +119,10 @@ export default function ThemeMenu({
 				onPress={toggleFavourites}
 				active={showFavouritesOnly}
 			>
-				<AppIcon name={showFavouritesOnly ? 'bookmark' : 'bookmark-outline'} />
+				<AppIcon
+					size={26}
+					name='bookmark-outline'
+				/>
 			</MenuButton>
 		</View>
 	);

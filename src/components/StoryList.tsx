@@ -2,7 +2,6 @@ import StoryTile from '@/components/StoryTile';
 import { usePreferences } from '@/context/PreferencesContext';
 import { stories } from '@/data/stories';
 import { router } from 'expo-router';
-import { useState } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AppText from './AppText';
@@ -30,14 +29,7 @@ export default function StoryList({ showFavouritesOnly }: StoryListProps) {
 	}
 
 	return (
-		<SafeAreaView
-			style={[
-				styles.container,
-				{
-					backgroundColor: theme.background,
-				},
-			]}
-		>
+		<SafeAreaView style={[styles.container]}>
 			<FlatList
 				data={visibleStories}
 				keyExtractor={(item) => item.id}

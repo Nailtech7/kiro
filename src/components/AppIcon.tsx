@@ -3,7 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 type AppIconProps = React.ComponentProps<typeof Ionicons>;
 
-export default function AppIcon({ size = 24, color, ...props }: AppIconProps) {
+export default function AppIcon({ size = 20, color, ...props }: AppIconProps) {
 	const { theme } = usePreferences();
 
 	return (
