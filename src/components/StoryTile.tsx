@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
 		letterSpacing: 0.1,
 	},
 	category: {
-		fontSize: 14,
+		fontSize: 16,
 		fontWeight: '400',
 		opacity: 0.45,
 		textTransform: 'capitalize',

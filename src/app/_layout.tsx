@@ -8,10 +8,9 @@ import {
 	Lora_400Regular_Italic,
 } from '@expo-google-fonts/lora';
 
-import { PatrickHand_400Regular } from '@expo-google-fonts/patrick-hand';
-
 import { AppBackground } from '@/components/AppBackground';
-import { ViaodaLibre_400Regular } from '@expo-google-fonts/viaoda-libre';
+import { Handlee_400Regular } from '@expo-google-fonts/handlee';
+
 import { StyleSheet, View } from 'react-native';
 
 import { DefaultTheme, ThemeProvider } from '@react-navigation/native';
@@ -30,14 +29,13 @@ export default function RootLayout() {
 		Lora_400Regular,
 		Lora_400Regular_Italic,
 
-		PatrickHand_400Regular,
-
-		ViaodaLibre_400Regular,
+		Handlee_400Regular,
 	});
 
 	if (!fontsLoaded) {
 		return null;
 	}
+
 	return (
 		<SafeAreaProvider>
 			<PreferencesProvider>

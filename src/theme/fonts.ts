@@ -9,17 +9,16 @@ export const fonts = {
 	handwritten: {
 		id: 'handwritten',
 		label: 'Handwritten',
-		body: 'PatrickHand_400Regular',
-		bodyItalic: 'PatrickHand_400Regular',
+		body: 'Handlee_400Regular',
+		bodyItalic: 'Handlee_400Regular',
 	},
 } as const;
-
 export type Font = (typeof fonts)[keyof typeof fonts];
 export type FontId = keyof typeof fonts;
 
 export const defaultFont: FontId = 'default';
 
-export const fontSizeMin = 12;
-export const fontSizeMax = 24;
+export const fontSizeMin = 14;
+export const fontSizeMax = 28;
 export const fontSizeDefault = 16;
 export const fontSizeStep = 1;

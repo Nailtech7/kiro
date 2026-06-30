@@ -1,5 +1,4 @@
 import AboutOverlay from '@/components/AboutOverlay';
-import { AppBackground } from '@/components/AppBackground';
 import Header from '@/components/Header';
 import HomeMenu from '@/components/HomeMenu';
 import StoryList from '@/components/StoryList';
@@ -12,7 +11,6 @@ export default function HomeScreen() {
 
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
-			{/* <AppBackground /> */}
 			<Header
 				menuOpen={menuOpen}
 				onToggleMenu={() => setMenuOpen(!menuOpen)}

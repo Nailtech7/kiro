@@ -11,6 +11,8 @@
     "lint": "expo lint"
   },
   "dependencies": {
+    "@expo-google-fonts/handlee": "^0.4.1",
+    "@expo-google-fonts/indie-flower": "^0.4.1",
     "@expo-google-fonts/lora": "^0.4.2",
     "@expo-google-fonts/nunito": "^0.4.2",
     "@expo-google-fonts/patrick-hand": "^0.4.1",
