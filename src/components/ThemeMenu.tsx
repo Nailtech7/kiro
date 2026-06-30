@@ -7,9 +7,16 @@ import AppIcon from './AppIcon';
 
 interface ThemeMenuProps {
 	onClose: () => void;
+
+	showFavouritesOnly: boolean;
+	setShowFavouritesOnly: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function ThemeMenu({ onClose }: ThemeMenuProps) {
+export default function ThemeMenu({
+	showFavouritesOnly,
+	setShowFavouritesOnly,
+	onClose,
+}: ThemeMenuProps) {
 	const { theme, themeId, setTheme } = usePreferences();
 
 	const themeIds = Object.keys(themes) as ThemeId[];
@@ -54,6 +61,11 @@ export default function ThemeMenu({ onClose }: ThemeMenuProps) {
 
 	async function selectDark() {
 		await setTheme('dark');
+		onClose();
+	}
+
+	async function toggleFavourites() {
+		setShowFavouritesOnly((prev) => !prev);
 		onClose();
 	}
 
@@ -103,12 +115,12 @@ export default function ThemeMenu({ onClose }: ThemeMenuProps) {
 				/>
 			</MenuButton>
 
-			{/* <MenuButton>
-				<AppIcon
-					size={14}
-					name='heart-outline'
-				/>
-			</MenuButton> */}
+			<MenuButton
+				onPress={toggleFavourites}
+				active={showFavouritesOnly}
+			>
+				<AppIcon name={showFavouritesOnly ? 'bookmark' : 'bookmark-outline'} />
+			</MenuButton>
 		</View>
 	);
 }

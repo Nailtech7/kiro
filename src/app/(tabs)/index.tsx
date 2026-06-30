@@ -9,6 +9,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
 	const [menuOpen, setMenuOpen] = useState(false);
+	const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
 	const { theme } = usePreferences();
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
@@ -21,11 +22,17 @@ export default function HomeScreen() {
 				<View style={[styles.overlay, { backgroundColor: theme.background }]} />
 			)}
 
-			{menuOpen && <ThemeMenu onClose={() => setMenuOpen(false)} />}
+			{menuOpen && (
+				<ThemeMenu
+					showFavouritesOnly={showFavouritesOnly}
+					setShowFavouritesOnly={setShowFavouritesOnly}
+					onClose={() => setMenuOpen(false)}
+				/>
+			)}
 
 			{menuOpen && <AboutOverlay />}
 
-			<StoryList />
+			<StoryList showFavouritesOnly={showFavouritesOnly} />
 		</SafeAreaView>
 	);
 }
