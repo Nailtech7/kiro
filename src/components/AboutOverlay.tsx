@@ -22,10 +22,10 @@ const styles = StyleSheet.create({
 	container: {
 		position: 'absolute',
 
-		left: 20,
-		bottom: 18,
+		left: 28,
+		bottom: 20,
 
-		gap: 12,
+		gap: 24,
 
 		zIndex: 100,
 	},

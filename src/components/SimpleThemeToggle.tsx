@@ -2,7 +2,7 @@ import { TouchableOpacity } from 'react-native';
 
 import { usePreferences } from '@/context/PreferencesContext';
 import { ThemeId, themes } from '@/theme/themes';
-import { Entypo } from '@expo/vector-icons';
+import AppIcon from './AppIcon';
 
 export default function ThemeToggle() {
 	const { theme, themeId, setTheme } = usePreferences();
@@ -19,11 +19,7 @@ export default function ThemeToggle() {
 
 	return (
 		<TouchableOpacity onPress={nextTheme}>
-			<Entypo
-				name='drop'
-				size={18}
-				color={theme.foreground}
-			/>
+			<AppIcon name='water-outline' />
 		</TouchableOpacity>
 	);
 }

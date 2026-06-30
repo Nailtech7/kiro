@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import { usePreferences } from '@/context/PreferencesContext';
 import AppIcon from './AppIcon';
 import AppText from './AppText';
 
@@ -11,17 +10,27 @@ interface HeaderProps {
 }
 
 export default function Header({ menuOpen, onToggleMenu }: HeaderProps) {
-	const { theme, fontId } = usePreferences();
-
 	return (
 		<View style={styles.container}>
-			<AppText style={styles.title}>kiro</AppText>
+			<AppText
+				style={[
+					styles.title,
+					{
+						fontSize: 24,
+					},
+				]}
+			>
+				Kiro
+			</AppText>
 
 			<TouchableOpacity
 				onPress={onToggleMenu}
 				hitSlop={12}
 			>
-				<AppIcon name={menuOpen ? 'cross' : 'drop'} />
+				<AppIcon
+					size={26}
+					name={menuOpen ? 'close' : 'water'}
+				/>
 			</TouchableOpacity>
 		</View>
 	);
@@ -33,11 +42,9 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 
-		paddingHorizontal: 16,
-		paddingTop: 16,
+		paddingHorizontal: 28,
+		paddingTop: 24,
 		paddingBottom: 12,
 	},
-	title: {
-		fontWeight: 900,
-	},
+	title: {},
 });

@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 	overlay: {
 		...StyleSheet.absoluteFill,
 
-		top: 46, // adjust to match  Header height
+		top: 64, // adjust to match  Header height
 
 		zIndex: 1,
 	},

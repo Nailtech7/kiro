@@ -14,6 +14,32 @@ export default function ThemeMenu({ onClose }: ThemeMenuProps) {
 
 	const themeIds = Object.keys(themes) as ThemeId[];
 
+	function MenuButton({
+		onPress,
+		active = false,
+		children,
+	}: {
+		onPress: () => void;
+		active?: boolean;
+		children: React.ReactNode;
+	}) {
+		return (
+			<TouchableOpacity
+				onPress={onPress}
+				hitSlop={12}
+				style={[
+					styles.iconButton,
+					active && {
+						borderWidth: 1.5,
+						borderColor: theme.foreground,
+					},
+				]}
+			>
+				{children}
+			</TouchableOpacity>
+		);
+	}
+
 	function nextTheme() {
 		const current = themeIds.indexOf(themeId);
 		const next = (current + 1) % themeIds.length;
@@ -40,33 +66,49 @@ export default function ThemeMenu({ onClose }: ThemeMenuProps) {
 
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity
+			<MenuButton
 				onPress={selectLight}
-				hitSlop={12}
+				active={themeId === 'light'}
 			>
-				<AppIcon name='light-up' />
-			</TouchableOpacity>
+				<AppIcon
+					size={26}
+					name='sunny-outline'
+				/>
+			</MenuButton>
 
-			<TouchableOpacity
+			<MenuButton
 				onPress={selectDark}
-				hitSlop={12}
+				active={themeId === 'dark'}
 			>
-				<AppIcon name='moon' />
-			</TouchableOpacity>
+				<AppIcon
+					size={26}
+					name='cloudy-night-outline'
+				/>
+			</MenuButton>
 
-			<TouchableOpacity
+			<MenuButton
 				onPress={selectShuffle}
-				hitSlop={12}
+				active={false} // later: shuffleEnabled
 			>
-				<AppIcon name='shuffle' />
-			</TouchableOpacity>
+				<AppIcon
+					size={26}
+					name='shuffle-outline'
+				/>
+			</MenuButton>
 
-			<TouchableOpacity
-				onPress={nextTheme}
-				hitSlop={12}
-			>
-				<AppIcon name='drop' />
-			</TouchableOpacity>
+			<MenuButton onPress={nextTheme}>
+				<AppIcon
+					size={26}
+					name='water-outline'
+				/>
+			</MenuButton>
+
+			{/* <MenuButton>
+				<AppIcon
+					size={14}
+					name='heart-outline'
+				/>
+			</MenuButton> */}
 		</View>
 	);
 }
@@ -76,12 +118,22 @@ const styles = StyleSheet.create({
 		position: 'absolute',
 
 		top: 72,
-		right: 20,
+		right: 18,
 
-		gap: 24,
+		gap: 18,
 
 		alignItems: 'center',
 
 		zIndex: 100,
+	},
+	iconButton: {
+		width: 45,
+		height: 45,
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderRadius: 24,
+	},
+	activeButton: {
+		borderWidth: 1.5,
 	},
 });

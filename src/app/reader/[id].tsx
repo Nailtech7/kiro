@@ -127,6 +127,9 @@ export default function ReaderScreen() {
 	const currentFont = fonts[fontId] || fonts['default'];
 	const isFavourite = favourites.includes(story.id);
 
+	console.log('fontId:', fontId);
+	console.log('available:', Object.keys(fonts));
+
 	return (
 		<View style={[styles.root, { backgroundColor: theme.background }]}>
 			{/* ── Full-screen scrollable content ── */}
@@ -207,10 +210,7 @@ export default function ReaderScreen() {
 						hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
 						style={styles.backButton}
 					>
-						<AppIcon
-							name='chevron-small-left'
-							size={24}
-						/>
+						<AppText>back</AppText>
 					</TouchableOpacity>
 				</SafeAreaView>
 
@@ -229,7 +229,7 @@ export default function ReaderScreen() {
 							hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
 							style={styles.controlItem}
 						>
-							<AppIcon name={isFavourite ? 'heart' : 'heart-outlined'} />
+							<AppIcon name={isFavourite ? 'heart' : 'heart-outline'} />
 						</TouchableOpacity>
 
 						{/* Theme toggle */}
@@ -243,18 +243,7 @@ export default function ReaderScreen() {
 							hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
 							style={styles.controlItem}
 						>
-							<AppIcon name='feather' />
-						</TouchableOpacity>
-
-						{/* Font size − */}
-						<TouchableOpacity
-							onPress={() =>
-								setFontSize(Math.max(fontSizeMin, fontSize - fontSizeStep))
-							}
-							hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-							style={styles.controlItem}
-						>
-							<AppIcon name='minus' />
+							<AppIcon name='text' />
 						</TouchableOpacity>
 
 						{/* Font size + */}
@@ -265,7 +254,18 @@ export default function ReaderScreen() {
 							hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
 							style={styles.controlItem}
 						>
-							<AppIcon name='plus' />
+							<AppIcon name='add-circle-outline' />
+						</TouchableOpacity>
+
+						{/* Font size − */}
+						<TouchableOpacity
+							onPress={() =>
+								setFontSize(Math.max(fontSizeMin, fontSize - fontSizeStep))
+							}
+							hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+							style={styles.controlItem}
+						>
+							<AppIcon name='remove-circle-outline' />
 						</TouchableOpacity>
 					</View>
 				</SafeAreaView>
@@ -279,9 +279,9 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	content: {
-		paddingTop: 60, // clear the back button
+		paddingTop: 92, // clear the back button
 		paddingBottom: 60, // clear the floating controls
-		paddingHorizontal: 18,
+		paddingHorizontal: 24,
 	},
 	title: {
 		fontWeight: '700',
@@ -300,14 +300,16 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		opacity: 0.5,
 	},
-	// Back button overlay
+	// Back button overlay - samae as logo
 	backWrapper: {
 		position: 'absolute',
 		top: 0,
 		left: 0,
 	},
 	backButton: {
-		padding: 12,
+		paddingLeft: 24,
+		paddingTop: 28,
+		paddingBottom: 12,
 	},
 	// Vertical controls overlay
 	controlsWrapper: {

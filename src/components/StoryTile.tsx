@@ -1,9 +1,7 @@
-import { Entypo } from '@expo/vector-icons';
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-
 import type { Story } from '@/data/stories';
 import type { Theme } from '@/theme/themes';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import AppText from './AppText';
 
 interface StoryTileProps {
@@ -14,58 +12,74 @@ interface StoryTileProps {
 	onFavouriteToggle: () => void;
 }
 
-export default function StoryTile({
-	story,
-	theme,
-	isFavourite,
-	onPress,
-	onFavouriteToggle,
-}: StoryTileProps) {
+export default function StoryTile({ story, theme, onPress }: StoryTileProps) {
 	return (
 		<TouchableOpacity
 			onPress={onPress}
-			activeOpacity={0.65}
-			style={styles.row}
+			activeOpacity={0.6}
+			style={styles.wrapper}
 		>
-			<Text style={styles.emoji}>{story.animal}</Text>
+			<View style={styles.row}>
+				{/* Emoji — top-aligned with title */}
+				<Text style={styles.emoji}>{story.animal}</Text>
 
-			<AppText
-				style={styles.title}
-				numberOfLines={1}
-			>
-				{story.title}
-			</AppText>
+				{/* Title + category */}
+				<View style={styles.textBlock}>
+					<AppText
+						style={styles.title}
+						numberOfLines={1}
+					>
+						{story.title}
+					</AppText>
+					<AppText
+						style={[styles.category, { color: theme.foreground }]}
+						numberOfLines={1}
+					>
+						{story.category}
+					</AppText>
+				</View>
+			</View>
 
-			<TouchableOpacity
-				onPress={onFavouriteToggle}
-				hitSlop={12}
-			>
-				<Entypo
-					name={isFavourite ? 'heart' : 'heart-outlined'}
-					size={16}
-					color={theme.foreground}
-				/>
-			</TouchableOpacity>
+			{/* Hairline separator at the bottom */}
+			<View style={[styles.separator, { backgroundColor: theme.foreground }]} />
 		</TouchableOpacity>
 	);
 }
 
 const styles = StyleSheet.create({
+	wrapper: {
+		paddingHorizontal: 14,
+	},
 	row: {
 		flexDirection: 'row',
-		alignItems: 'center',
+		alignItems: 'flex-start',
 		paddingVertical: 12,
 	},
-
 	emoji: {
-		fontSize: 18,
-		width: 32,
+		fontSize: 24,
+		lineHeight: 32, // matches title lineHeight so tops align
+		width: 28,
 		textAlign: 'left',
 	},
-
-	title: {
+	textBlock: {
 		flex: 1,
-
-		marginLeft: 2,
+		marginLeft: 12,
+		gap: 2,
+	},
+	title: {
+		fontSize: 18,
+		fontWeight: '500',
+		lineHeight: 24,
+		letterSpacing: 0.1,
+	},
+	category: {
+		fontSize: 14,
+		fontWeight: '400',
+		opacity: 0.45,
+		textTransform: 'capitalize',
+	},
+	separator: {
+		height: StyleSheet.hairlineWidth,
+		opacity: 0.15,
 	},
 });

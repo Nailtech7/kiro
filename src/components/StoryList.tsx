@@ -1,10 +1,10 @@
-import { router } from 'expo-router';
-import { useState } from 'react';
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import StoryTile from '@/components/StoryTile';
 import { usePreferences } from '@/context/PreferencesContext';
 import { stories } from '@/data/stories';
+import { router } from 'expo-router';
+import { useState } from 'react';
+import { FlatList, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import AppText from './AppText';
 
 export default function StoryList() {
@@ -36,20 +36,6 @@ export default function StoryList() {
 				},
 			]}
 		>
-			<View style={styles.controls}>
-				<TouchableOpacity
-					onPress={() => setShowFavouritesOnly((value) => !value)}
-				>
-					<AppText>
-						{showFavouritesOnly ? '♥ Favourites' : 'all stories'}
-					</AppText>
-				</TouchableOpacity>
-
-				<TouchableOpacity onPress={handleShuffle}>
-					<AppText>Shuffle</AppText>
-				</TouchableOpacity>
-			</View>
-
 			<FlatList
 				data={visibleStories}
 				keyExtractor={(item) => item.id}

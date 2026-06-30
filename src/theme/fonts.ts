@@ -19,7 +19,7 @@ export type FontId = keyof typeof fonts;
 
 export const defaultFont: FontId = 'default';
 
-export const fontSizeMin = 14;
-export const fontSizeMax = 26;
-export const fontSizeDefault = 17;
+export const fontSizeMin = 12;
+export const fontSizeMax = 24;
+export const fontSizeDefault = 16;
 export const fontSizeStep = 1;

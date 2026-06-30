@@ -12,7 +12,7 @@ export default function AppText({ style, ...props }: TextProps) {
 				{
 					fontFamily: fonts[fontId].body,
 					color: theme.foreground,
-					fontSize: 14,
+					fontSize: 20,
 					fontWeight: '400',
 				},
 				style,

@@ -1,13 +1,13 @@
 import { usePreferences } from '@/context/PreferencesContext';
-import { Entypo } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
-type AppIconProps = React.ComponentProps<typeof Entypo>;
+type AppIconProps = React.ComponentProps<typeof Ionicons>;
 
-export default function AppIcon({ size = 16, color, ...props }: AppIconProps) {
+export default function AppIcon({ size = 24, color, ...props }: AppIconProps) {
 	const { theme } = usePreferences();
 
 	return (
-		<Entypo
+		<Ionicons
 			size={size}
 			color={color ?? theme.foreground}
 			{...props}
