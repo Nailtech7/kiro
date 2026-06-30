@@ -60,6 +60,9 @@ export const CLOUD_MAX_OPACITY = 0.45;
 export const CLOUD_MIN_WIDTH = 140;
 export const CLOUD_MAX_WIDTH = 260;
 
+export const CLOUD_BASE_HEIGHT = 160;
+export const CLOUD_BASE_WIDTH = 90;
+
 // Clouds stay in the upper portion of the screen so they read as sky, not as
 // set-dressing colliding with foreground glass cards lower down.
 export const CLOUD_MIN_TOP_PERCENT = 0.04;
