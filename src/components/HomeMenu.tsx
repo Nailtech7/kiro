@@ -5,19 +5,14 @@ import { usePreferences } from '@/context/PreferencesContext';
 import { ThemeId, themes } from '@/theme/themes';
 import AppIcon from './AppIcon';
 
-interface ThemeMenuProps {
-	onClose: () => void;
-
-	showFavouritesOnly: boolean;
-	setShowFavouritesOnly: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export default function HomeMenu({
-	showFavouritesOnly,
-	setShowFavouritesOnly,
-	onClose,
-}: ThemeMenuProps) {
-	const { theme, themeId, setTheme } = usePreferences();
+export default function HomeMenu() {
+	const {
+		theme,
+		themeId,
+		setTheme,
+		showFavouritesOnly,
+		setShowFavouritesOnly,
+	} = usePreferences();
 
 	const themeIds = Object.keys(themes) as ThemeId[];
 
@@ -56,24 +51,20 @@ export default function HomeMenu({
 
 	async function selectLight() {
 		await setTheme('light');
-		onClose();
 	}
 
 	async function selectDark() {
 		await setTheme('dark');
-		onClose();
 	}
 
 	async function toggleFavourites() {
 		setShowFavouritesOnly((prev) => !prev);
-		onClose();
 	}
 
 	//do it later
 	function selectShuffle() {
 		// TODO
 		// setThemeMode('shuffle');
-		onClose();
 	}
 
 	return (

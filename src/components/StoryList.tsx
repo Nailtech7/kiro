@@ -6,12 +6,9 @@ import { FlatList, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AppText from './AppText';
 
-interface StoryListProps {
-	showFavouritesOnly: boolean;
-}
-
-export default function StoryList({ showFavouritesOnly }: StoryListProps) {
-	const { theme, favourites, toggleFavourite } = usePreferences();
+export default function StoryList() {
+	const { theme, favourites, toggleFavourite, showFavouritesOnly } =
+		usePreferences();
 
 	const visibleStories = showFavouritesOnly
 		? stories.filter((story) => favourites.includes(story.id))

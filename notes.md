@@ -1,3 +1,444 @@
+# folder structure
+
+src/
+│
+├── app/
+│ │
+│ ├── (tabs)/
+│ │ ├── \_layout.tsx
+│ │ └── index.tsx
+│ │
+│ ├── reader/
+│ │ └── [id].tsx
+│ │
+│ ├── drawing/
+│ │ └── [id].tsx ← Drawing screen
+│ │
+│ └── \_layout.tsx
+│
+├── background/
+│
+├── components/
+│ ├── Header.tsx
+│ ├── HomeMenu.tsx
+│ ├── MenuButton.tsx
+│ ├── StoryTile.tsx
+│ ├── StoryList.tsx
+│ └── ThemeMenu.tsx
+│
+├── context/
+│
+├── data/
+│ └── stories.ts
+│
+├── drawing/
+│ ├── DrawingCanvas.tsx
+│ ├── DrawingToolbar.tsx (optional later)
+│ ├── DrawingStorage.ts
+│ ├── types.ts
+│ ├── hooks/
+│ │ ├── useDrawing.ts
+│ │ └── useUndoRedo.ts
+│ └── utils/
+│ ├── exportImage.ts
+│ └── paths.ts
+│
+├── theme/
+│
+└── utils/
+
+DrawingScreen
+│
+├── Existing Header (reuse)
+│
+├── DrawingCanvas
+│
+├── Moral
+│
+├── Footer
+│ ├── Date
+│ └── Share
+│
+└── AutoSave
+
+Device
+
+├── drawings/
+│ 1.png
+│ 4.png
+│ 7.png
+│
+└── AsyncStorage
+storyId -> imageUri
+
+# screens
+
+┌─────────────────────────────────────┐
+│ Kiro ↶ ↷ ✕ ☰ │
+├─────────────────────────────────────┤
+│ │
+│ │
+│ Drawing Canvas │
+│ (square, full width) │
+│ │
+│ │
+├─────────────────────────────────────┤
+│ │
+│ "Kindness is never wasted." │
+│ │
+├─────────────────────────────────────┤
+│ Kiro 11.2 Share │
+└─────────────────────────────────────┘
+
+# drawing canvas
+
+## the plan
+
+I think this is the strongest feature in Kiro because it transforms the app from a story reader into a story journal. It demonstrates frontend engineering, UI/UX, and product thinking all at once.
+
+I would treat it as a separate subsystem rather than “just another screen.”
+
+⸻
+
+Phase 1 — Drawing Experience
+
+The Reader has two modes:
+
+Reading Mode
+↓
+Drawing Mode
+
+The canvas appears over the story (or replaces it temporarily), with a very simple toolbar:
+
+- Pen
+- Undo
+- Redo
+- Clear
+- Done
+
+No colors.
+
+No brush sizes.
+
+No shapes.
+
+The simpler it is, the more polished it feels.
+
+⸻
+
+Phase 2 — Data Model
+
+Each story can have one drawing.
+
+Conceptually:
+
+Story
+id: 5
+↓
+Drawing
+storyId: 5
+imageUri: ...
+createdAt: ...
+updatedAt: ...
+
+Store only what you need.
+
+No history.
+
+No multiple pages.
+
+⸻
+
+Phase 3 — Persistence
+
+This should be completely offline.
+
+When the child taps Done:
+
+Canvas
+↓
+Export image
+↓
+Save locally
+↓
+Store URI
+↓
+Done
+
+The next time the story opens:
+
+storyId
+↓
+lookup drawing
+↓
+display drawing
+
+⸻
+
+Phase 4 — StoryTile
+
+This is where the feature becomes memorable.
+
+Instead of
+
+🐶
+The Fox and the Crow
+
+it becomes
+
+Tiny drawing thumbnail
+The Fox and the Crow
+
+If no drawing exists
+
+↓
+
+show the normal icon.
+
+If drawing exists
+
+↓
+
+show the artwork.
+
+Now every story becomes personal.
+
+⸻
+
+Phase 5 — Reader
+
+When opening a story that already has artwork
+
+show a tiny button
+
+Drawing
+
+or
+
+Sketch
+
+Tapping it opens the canvas with the previous drawing already loaded.
+
+⸻
+
+Phase 6 — Share
+
+This is where I’d avoid simply sharing the drawing.
+
+Instead generate a keepsake card.
+
++----------------------------+
+THE LION & THE MOUSE
+(child's drawing)
+"Kindness is never wasted."
+July 2, 2026
+Kiro
++----------------------------+
+
+That is something parents will actually send.
+
+⸻
+
+Phase 7 — Drawing Style
+
+I would intentionally make it look like a crayon or pencil.
+
+Not vector-perfect.
+
+Slight texture.
+
+Slight transparency.
+
+It fits the storybook feel.
+
+⸻
+
+Storage
+
+Everything stays local.
+
+No backend.
+
+No authentication.
+
+The app simply remembers
+
+Story 1
+↓
+Drawing URI
+
+Very lightweight.
+
+⸻
+
+UI Flow
+
+Home
+↓
+Story
+↓
+Read
+↓
+Draw
+↓
+Done
+↓
+Story updated
+↓
+Home
+↓
+Thumbnail appears
+
+The feedback loop is immediate.
+
+⸻
+
+What NOT to build
+
+I wouldn’t add
+
+- stickers
+- colors
+- layers
+- eraser types
+- paint bucket
+- zoom
+- shape tools
+
+That turns it into a drawing app.
+
+Kiro should remain a reading app.
+
+⸻
+
+Engineering Breakdown
+
+From a frontend perspective, this feature naturally splits into five independent pieces:
+
+1. Canvas
+
+Only responsible for strokes.
+
+Nothing else.
+
+⸻
+
+2. Toolbar
+
+Only responsible for
+
+- Undo
+- Redo
+- Clear
+- Save
+
+No drawing logic.
+
+⸻
+
+3. Storage
+
+Only responsible for
+
+saveDrawing()
+getDrawing()
+deleteDrawing()
+
+The UI shouldn’t care where it’s stored.
+
+⸻
+
+4. StoryTile
+
+Checks
+
+Does this story have artwork?
+
+Yes
+
+↓
+
+show thumbnail.
+
+No
+
+↓
+
+show emoji.
+
+⸻
+
+5. Share Generator
+
+Responsible for producing the keepsake.
+
+Nothing else.
+
+⸻
+
+Future Expansion
+
+Once this system exists, adding features becomes easy.
+
+For example
+
+Story
+↓
+Drawing
+↓
+Voice recording
+↓
+Parent notes
+↓
+Date completed
+
+Every story becomes a memory.
+
+⸻
+
+One suggestion I’d make
+
+I wouldn’t market it as a drawing feature.
+
+I’d market it as a Story Journal.
+
+The drawing is simply one part of it.
+
+Over time, each story accumulates memories:
+
+- Read on: July 2
+- Child’s drawing
+- Favorite status
+- Maybe even a voice recording from a parent in a future version
+
+That framing makes the feature feel much more intentional and gives Kiro a unique identity beyond being another offline storybook app.
+
+## working flow
+
+ReaderScreen
+
+↓
+
+Open DrawingCanvas
+
+↓
+
+User draws
+
+↓
+
+Done
+
+↓
+
+imageUri returned
+
+↓
+
+ReaderScreen saves it
+
+# Story reader tts
+
 I’d think of it as three independent systems that work together.
 
 1. Speech Engine
@@ -274,7 +715,7 @@ Context-aware immersive backgrounds inspired by Apple Weather.
 
 ## That sounds like a system rather than a cosmetic effect.
 
-# DYNAMIC WALL PAPER
+# DYNAMIC WALL PAPER - done
 
 ## tips
 

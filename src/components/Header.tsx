@@ -1,17 +1,12 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
+import { router } from 'expo-router';
 import AppIcon from './AppIcon';
 import AppText from './AppText';
-
-interface HeaderProps {
-	menuOpen: boolean;
-	onToggleMenu: () => void;
-}
-
-export default function Header({ menuOpen, onToggleMenu }: HeaderProps) {
+export default function Header() {
 	return (
-		<View style={styles.container}>
+		<View style={styles.header}>
 			<AppText
 				style={[
 					styles.title,
@@ -24,12 +19,12 @@ export default function Header({ menuOpen, onToggleMenu }: HeaderProps) {
 			</AppText>
 
 			<TouchableOpacity
-				onPress={onToggleMenu}
+				onPress={() => router.push('/settings')}
 				hitSlop={12}
 			>
 				<AppIcon
-					size={26}
-					name={menuOpen ? 'close' : 'water'}
+					size={24}
+					name='sparkles-outline'
 				/>
 			</TouchableOpacity>
 		</View>
@@ -37,7 +32,7 @@ export default function Header({ menuOpen, onToggleMenu }: HeaderProps) {
 }
 
 const styles = StyleSheet.create({
-	container: {
+	header: {
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',

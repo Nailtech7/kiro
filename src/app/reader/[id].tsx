@@ -148,10 +148,6 @@ export default function ReaderScreen() {
 		}
 	}
 
-	function handleCanvas() {
-		return null;
-	}
-
 	return (
 		<View style={[styles.root, {}]}>
 			{/* ── Full-screen scrollable content ── */}
@@ -252,7 +248,7 @@ export default function ReaderScreen() {
 					</MenuButton>
 
 					<MenuButton
-						onPress={handleCanvas}
+						onPress={() => router.push(`/drawing/${story.id}`)}
 						active={false}
 					>
 						<AppIcon

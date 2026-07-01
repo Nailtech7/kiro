@@ -28,6 +28,9 @@ interface PreferencesContextType {
 	setFontSize: (size: number) => Promise<void>;
 	toggleFavourite: (storyId: string) => Promise<void>;
 
+	showFavouritesOnly: boolean;
+	setShowFavouritesOnly: React.Dispatch<React.SetStateAction<boolean>>;
+
 	ready: boolean;
 }
 
@@ -40,6 +43,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
 	const [fontId, setFontId] = useState<FontId>('default');
 	const [fontSize, setFontSizeState] = useState(17);
 	const [favourites, setFavouritesState] = useState<string[]>([]);
+	const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
 
 	useEffect(() => {
 		async function init() {
@@ -93,6 +97,10 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
 				setFont,
 				setFontSize,
 				toggleFavourite,
+
+				showFavouritesOnly,
+
+				setShowFavouritesOnly,
 			}}
 		>
 			{children}
