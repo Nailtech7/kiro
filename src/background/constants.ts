@@ -9,8 +9,20 @@ export const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } =
 
 // `as const` keeps these as fixed-length tuples, matching the type
 // `expo-linear-gradient` expects for its `colors` prop.
-export const NIGHT_GRADIENT_COLORS = ['#07152B', '#123A72', '#325A96'] as const;
-export const DAY_GRADIENT_COLORS = ['#58B7FF', '#A7DFFF', '#F6FCFF'] as const;
+// export const NIGHT_GRADIENT_COLORS = ['#07152B', '#123A72', '#325A96'] as const;
+// export const DAY_GRADIENT_COLORS = ['#58B7FF', '#A7DFFF', '#F6FCFF'] as const;
+
+export const NIGHT_GRADIENT_COLORS = [
+	'#020B1F', // deep midnight navy
+	'#1D4E9C', // rich cobalt
+	'#6FA8FF', // moonlit blue
+] as const;
+
+export const DAY_GRADIENT_COLORS = [
+	'#1FA2FF', // vibrant sky blue
+	'#79D7FF', // bright cyan
+	'#F4FCFF', // almost white horizon
+] as const;
 
 /* -------------------------------------------------------------------------- */
 /* Stars (night background)                                                        */

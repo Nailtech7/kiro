@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Clouds from './Clouds/Clouds';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from './constants';
 import DayGradient from './Gradient/DayGradient';
 import NightGradient from './Gradient/NightGradient';
 import Stars from './Stars/Stars';
@@ -27,7 +28,7 @@ import type { DynamicBackgroundProps } from './types';
 
 function DynamicBackground({ variant }: DynamicBackgroundProps) {
 	const isNight = variant === 'night';
-
+	console.log('width, height', SCREEN_WIDTH, SCREEN_HEIGHT);
 	return (
 		<View
 			style={StyleSheet.absoluteFill}

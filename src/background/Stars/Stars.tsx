@@ -1,8 +1,6 @@
 import React, { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import Svg from 'react-native-svg';
-import Star from './Star';
-import type { StarData } from '../types';
 import {
 	SCREEN_HEIGHT,
 	SCREEN_WIDTH,
@@ -16,6 +14,8 @@ import {
 	STAR_MIN_TWINKLE_DURATION,
 	randomBetween,
 } from '../constants';
+import type { StarData } from '../types';
+import Star from './Star';
 
 function generateStars(count: number): StarData[] {
 	return Array.from({ length: count }, (_, id) => ({
@@ -48,9 +48,9 @@ function Stars() {
 	return (
 		<Svg
 			pointerEvents='none'
-			style={StyleSheet.absoluteFillObject}
-			width={SCREEN_WIDTH}
-			height={SCREEN_HEIGHT}
+			style={StyleSheet.absoluteFill}
+			width='100%'
+			height='100%'
 		>
 			{stars.map((star) => (
 				<Star

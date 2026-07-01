@@ -131,9 +131,7 @@ export default function ReaderScreen() {
 	// ── Guard ────────────────────────────────────────────────────────────────
 	if (!story) {
 		return (
-			<SafeAreaView
-				style={[styles.root, { backgroundColor: theme.background }]}
-			>
+			<SafeAreaView style={[styles.root, {}]}>
 				<AppText>Story not found.</AppText>
 			</SafeAreaView>
 		);
@@ -146,7 +144,7 @@ export default function ReaderScreen() {
 	console.log('available:', Object.keys(fonts));
 
 	return (
-		<View style={[styles.root, { backgroundColor: theme.background }]}>
+		<View style={[styles.root, {}]}>
 			{/* ── Full-screen scrollable content ── */}
 			<ScrollView
 				contentContainerStyle={styles.content}

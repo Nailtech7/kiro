@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
-import Cloud from './Cloud';
-import type { CloudData } from '../types';
+import { StyleSheet, View } from 'react-native';
 import {
 	CLOUD_COUNT,
 	CLOUD_MAX_OPACITY,
@@ -15,6 +14,8 @@ import {
 	randomBetween,
 	randomItem,
 } from '../constants';
+import type { CloudData } from '../types';
+import Cloud from './Cloud';
 
 function generateClouds(count: number): CloudData[] {
 	return Array.from({ length: count }, (_, id) => {
@@ -54,14 +55,17 @@ function Clouds() {
 	const clouds = useMemo(() => generateClouds(CLOUD_COUNT), []);
 
 	return (
-		<>
+		<View
+			style={[StyleSheet.absoluteFill, { overflow: 'hidden' }]}
+			pointerEvents='none'
+		>
 			{clouds.map((cloud) => (
 				<Cloud
 					key={cloud.id}
 					cloud={cloud}
 				/>
 			))}
-		</>
+		</View>
 	);
 }
 

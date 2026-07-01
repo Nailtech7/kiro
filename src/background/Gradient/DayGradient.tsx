@@ -1,6 +1,6 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { DAY_GRADIENT_COLORS } from '../constants';
 
 /**
@@ -16,7 +16,7 @@ function DayGradient() {
 			locations={[0, 0.5, 1]}
 			start={{ x: 0.5, y: 0 }}
 			end={{ x: 0.5, y: 1 }}
-			style={StyleSheet.absoluteFillObject}
+			style={StyleSheet.absoluteFill}
 		/>
 	);
 }
