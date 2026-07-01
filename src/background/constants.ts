@@ -12,11 +12,7 @@ export const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } =
 // export const NIGHT_GRADIENT_COLORS = ['#07152B', '#123A72', '#325A96'] as const;
 // export const DAY_GRADIENT_COLORS = ['#58B7FF', '#A7DFFF', '#F6FCFF'] as const;
 
-export const NIGHT_GRADIENT_COLORS = [
-	'#020B1F', // deep midnight navy
-	'#1D4E9C', // rich cobalt
-	'#6FA8FF', // moonlit blue
-] as const;
+export const NIGHT_GRADIENT_COLORS = ['#00020A', '#071A38', '#2957A3'] as const;
 
 export const DAY_GRADIENT_COLORS = [
 	'#1FA2FF', // vibrant sky blue
@@ -28,22 +24,22 @@ export const DAY_GRADIENT_COLORS = [
 /* Stars (night background)                                                        */
 /* -------------------------------------------------------------------------- */
 
-export const STAR_COUNT = 40;
+export const STAR_COUNT = 50;
 
 // Most stars read as tiny pinpricks of light; a few are slightly larger
 // focal points so the field doesn't look uniform/artificial.
 export const STAR_MIN_RADIUS = 0.6;
-export const STAR_MAX_RADIUS = 1.8;
+export const STAR_MAX_RADIUS = 2;
 
 // Stars never fully disappear at their dimmest — a sky going fully black
 // reads as "broken" rather than "subtle".
 export const STAR_MIN_OPACITY = 0.35;
-export const STAR_MAX_OPACITY = 1;
+export const STAR_MAX_OPACITY = 0.8;
 
 // Wide duration range + per-star random delay is what prevents the field
 // from blinking in unison.
-export const STAR_MIN_TWINKLE_DURATION = 2000;
-export const STAR_MAX_TWINKLE_DURATION = 6000;
+export const STAR_MIN_TWINKLE_DURATION = 1000;
+export const STAR_MAX_TWINKLE_DURATION = 4000;
 export const STAR_MAX_TWINKLE_DELAY = 4000;
 
 /* -------------------------------------------------------------------------- */

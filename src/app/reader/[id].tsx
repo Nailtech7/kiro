@@ -140,8 +140,17 @@ export default function ReaderScreen() {
 	const currentFont = fonts[fontId] || fonts['default'];
 	const isFavourite = favourites.includes(story.id);
 
-	console.log('fontId:', fontId);
-	console.log('available:', Object.keys(fonts));
+	function handleBack() {
+		if (router.canGoBack()) {
+			router.back();
+		} else {
+			router.replace('/(tabs)');
+		}
+	}
+
+	function handleCanvas() {
+		return null;
+	}
 
 	return (
 		<View style={[styles.root, {}]}>
@@ -219,7 +228,7 @@ export default function ReaderScreen() {
 					pointerEvents='box-none'
 				>
 					<TouchableOpacity
-						onPress={() => router.back()}
+						onPress={handleBack}
 						hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
 						style={styles.backButton}
 					>
@@ -239,6 +248,16 @@ export default function ReaderScreen() {
 						<AppIcon
 							size={20}
 							name='bookmark-outline'
+						/>
+					</MenuButton>
+
+					<MenuButton
+						onPress={handleCanvas}
+						active={false}
+					>
+						<AppIcon
+							size={20}
+							name='paw-outline'
 						/>
 					</MenuButton>
 
