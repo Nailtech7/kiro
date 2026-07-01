@@ -148,10 +148,6 @@ export default function ReaderScreen() {
 		}
 	}
 
-	function handleCanvas() {
-		return null;
-	}
-
 	return (
 		<View style={[styles.root, {}]}>
 			{/* ── Full-screen scrollable content ── */}
@@ -248,16 +244,6 @@ export default function ReaderScreen() {
 						<AppIcon
 							size={20}
 							name='bookmark-outline'
-						/>
-					</MenuButton>
-
-					<MenuButton
-						onPress={handleCanvas}
-						active={false}
-					>
-						<AppIcon
-							size={20}
-							name='paw-outline'
 						/>
 					</MenuButton>
 
